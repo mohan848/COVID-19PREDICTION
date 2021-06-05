@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Employee Profile</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+        body {
+    font: 400 15px/1.8 Lato, sans-serif;
+    color: #777;
+    background-color: #EEEEEE;
+  }
+  h3{
+    margin: 10px 0 30px 0;
+    letter-spacing: 10px;      
+    font-size: 22px;
+    color: #111;
+  }
+  .nav-tabs li a {
+    color: #777;
+  } 
+  .navbar {
+    font-family: Montserrat, sans-serif;
+    margin-bottom: 0;
+    background-color: #2d2d30;
+    border: 0;
+    font-size: 11px !important;
+    letter-spacing: 4px;
+    opacity: 0.9;
+  }
+  .navbar li a, .navbar .navbar-brand { 
+    color: #d5d5d5 !important;
+  }
+  .navbar-nav li a:hover {
+    color: #fff !important;
+  }
+  .navbar-nav li.active a {
+    color: #fff !important;
+    background-color: #29292c !important;
+  }
+  .navbar-default .navbar-toggle {
+    border-color: transparent;
+  }
+  .open .dropdown-toggle {
+    color: #fff;
+    background-color: #555 !important;
+  }
+  .dropdown-menu li a {
+    color: #000 !important;
+  }
+  .dropdown-menu li a:hover {
+    background-color: red !important;
+  }
+  .main{
+      position: relative;
+		width:50%;
+		padding: 2%;
+		text-align: center;
+		margin-left: 27%;
+		margin-top: 7%;
+		border-radius: 2px;
+		background-color: white;
+	}
+    .txtvalues{
+        font-size: 20px;
+        font: 400 20px/1.8 Lato, sans-serif;;
+    }
+
+</style>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>                        
+            </button>
+            <a class="navbar-brand" href="#myPage">M&D</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="{{ url_for('admindashboard') }}"><i class="fa fa-home" style="font-size:18px;color:white"></i> HOME</a></li>
+              <li><a href="{{url_for('uploadresults')}}"><i class="fa fa-cloud-upload" style="font-size:18px;color:white"></i> UPLOAD RESULTS</a></li>
+              <li><a href="{{ url_for('addpatient') }}"><i class="fa fa-user-plus" style="font-size:18px;color:white"></i> ADD PATIENT</a></li>
+              <li><a href="#"><i class="fa fa-user-circle-o" style="font-size:18px;color:white"></i>PROFILE</a></li>
+              <li><a href="{{ url_for('logout') }}"><i class="fa fa-sign-out" style="font-size:18px;color:red"></i>LOGOUT</a></li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+      <div class="main">
+        <h3>PROFILE</h3>
+        <img src="data:image/jpeg;base64,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" alt="Profile" height="225px" width="250px">
+        <center>
+        <table>
+            <tr>
+                <td class="txtvalues">Username: </td>
+                <td class="txtvalues">{{ account['username'] }}</td>
+            </tr>
+            <tr>
+                <td class="txtvalues">Password: </td>
+                <td class="txtvalues">{{ account['password'] }}</td>
+            </tr>
+        </table>
+        </center>
+      </div>
+</body>
+</html>
