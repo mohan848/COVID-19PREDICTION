@@ -1,0 +1,229 @@
+<html>
+	<head>
+		<title>COVID-19 TESTING</title>
+        <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+  body {
+    font: 400 15px/1.8 Lato, sans-serif;
+    color: #777;
+    background-color: #EEEEEE;
+  }
+  h3, h4 {
+    margin: 10px 0 30px 0;
+    letter-spacing: 10px;      
+    font-size: 20px;
+    color: #111;
+  }
+  .container {
+    padding: 80px 120px;
+  }
+  .bg-1 {
+    background: #2d2d30;
+    color: #bdbdbd;
+  }
+  .bg-1 h3 {color: #fff;}
+  .bg-1 p {font-style: italic;}
+  .list-group-item:first-child {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+  }
+  .list-group-item:last-child {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .thumbnail {
+    padding: 0 0 15px 0;
+    border: none;
+    border-radius: 0;
+  }
+  .thumbnail p {
+    margin-top: 15px;
+    color: #555;
+  }
+
+  .modal-header, h4, .close {
+    background-color: #333;
+    color: #fff !important;
+    text-align: center;
+    font-size: 30px;
+  }
+  .modal-header, .modal-body {
+    padding: 40px 50px;
+  }
+  .nav-tabs li a {
+    color: #777;
+  } 
+  .navbar {
+    font-family: Montserrat, sans-serif;
+    margin-bottom: 0;
+    background-color: #2d2d30;
+    border: 0;
+    font-size: 11px !important;
+    letter-spacing: 4px;
+    opacity: 0.9;
+  }
+  .navbar li a, .navbar .navbar-brand { 
+    color: #d5d5d5 !important;
+  }
+  .navbar-nav li a:hover {
+    color: #fff !important;
+  }
+  .navbar-nav li.active a {
+    color: #fff !important;
+    background-color: #29292c !important;
+  }
+  .navbar-default .navbar-toggle {
+    border-color: transparent;
+  }
+  .open .dropdown-toggle {
+    color: #fff;
+    background-color: #555 !important;
+  }
+  .dropdown-menu li a {
+    color: #000 !important;
+  }
+  .dropdown-menu li a:hover {
+    background-color: red !important;
+  }
+  #predict-button{
+      font-size: 12x;
+      margin-bottom: 1%;
+  }
+
+
+  .main{
+		width:92%;
+		padding:1%;
+		margin-left: 6%;
+		border-radius: 2px;
+		background-color: white;
+	}
+	.input_values{
+		width:20%;
+
+	}
+    #image-selector{
+        text-align: center;
+        padding: 5px;
+        margin-bottom: 1%;
+    }
+    #predict-button{
+        margin-top:1%;
+    }
+    #pid{
+      width:54%;
+      }
+    #idsel{
+      margin-left: 32%;
+    }
+    #msg1{
+    color: red;
+  }
+  .statusmsg{
+    font-size: 20px;
+    text-decoration-color: red;
+  }
+  
+  </style>
+
+
+	</head>
+
+	<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>                        
+            </button>
+            <a class="navbar-brand" href="#myPage">M&D</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="{{ url_for('admindashboard') }}"><i class="fa fa-home" style="font-size:18px;color:white"></i> HOME</a></li>
+              <li><a href="#"><i class="fa fa-cloud-upload" style="font-size:18px;color:white"></i> UPLOAD RESULTS</a></li>
+              <li><a href="{{ url_for('addpatient') }}"><i class="fa fa-user-plus" style="font-size:18px;color:white"></i> ADD PATIENT</a></li>
+              <li><a href="{{ url_for('profile') }}"><i class="fa fa-user-circle-o" style="font-size:18px;color:white"></i>PROFILE</a></li>
+              <li><a href="{{ url_for('logout') }}"><i class="fa fa-sign-out" style="font-size:18px;color:red"></i>LOGOUT</a></li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="main">
+                <center><h3>COVID-19 TESTING USING X-RAY IMAGES</h3></center>
+                <center>
+                  <div class="statusmsg">
+                    <span id="msg1">{{ status }}</span>
+                  </div>
+                  </center>
+                <center>  
+                <input id="image-selector" type="file" name="pic"> 
+                <img id="selected-image" width="300" height="280" src="https://previews.123rf.com/images/vectorworks51/vectorworks511611/vectorworks51161100177/67678028-chest-x-ray-vector-illustration-clip-art-image.jpg"/>
+                <br></center>
+                <form action="/upload" method="POST">
+                <div class="form-group" id="idsel">
+                  <label for="idselect">Select ID:</label>
+                  <select class="form-control" id="pid" name="pid" required>
+                    {% for j in pendinglist %}
+                    <option value={{j.get('ID')}}>{{j.get('ID')}} - {{j.get('name')}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+               <center> <p>TEST RESULT: <span id="result">...</span></p>
+                <input type="hidden" id="myText" value="Mickey" name="myText">
+                <button type="button" id="predict-button" class="btn btn-success"><i class="fa fa-cogs" style="font-size:15px;color: white;"></i> Predict</button>
+                <button id="store-button" class="btn btn-primary" type="submit"><i class="fa fa-send" style="font-size:15px;color: white;"></i> Submit</button>
+               </center>
+            </form>
+        </div>
+    </div>
+	</body>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    let base64Image;
+    $("#image-selector").change(function() {
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            let dataURL = reader.result;
+            $('#selected-image').attr("src", dataURL);
+            base64Image = dataURL.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+            console.log(base64Image);
+        }
+        reader.readAsDataURL($("#image-selector")[0].files[0]);
+        $("#result").text("");
+        $("#probability").text("");
+
+    });
+
+    $("#predict-button").click(function(){
+            let message = {
+            image: base64Image
+        }
+        console.log(message);
+        $.post("http://127.0.0.1:5000/predict", JSON.stringify(message), function(response){
+            $("#result").text(response.prediction.result);
+            $("#myText").val(response.prediction.result);
+        });
+    });
+
+    function insert(){
+      var span_txt=document.getElementById('result').innerText;
+      document.getElementById("myText").value=span_txt;
+    }
+
+</script>
+</html>
